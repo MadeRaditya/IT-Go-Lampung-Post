@@ -15,10 +15,10 @@
                 
                 @auth
                     @if(auth()->user()->isAdmin())
-                        <a href="#" class="hover:text-blue-200 transition">Dashboard Admin</a>
+                        <a href="{{ route('admin.dashboard') }}" class="hover:text-blue-200 transition">Dashboard Admin</a>
                     @else
-                        <a href="#" class="hover:text-blue-200 transition">Buat Laporan</a>
-                        <a href="#" class="hover:text-blue-200 transition">Tiket Saya</a>
+                        <a href="{{ route('user.tickets.create') }}" class="hover:text-blue-200 transition">Buat Laporan</a>
+                        <a href="{{ route('user.tickets.index') }}" class="hover:text-blue-200 transition">Tiket Saya</a>
                     @endif
                 @endauth
             </div>
@@ -31,15 +31,15 @@
                             {{ auth()->user()->role }}
                         </span>
                     </div>
-                    <form method="POST" action="#" class="inline">
+                    <form method="POST" action="{{ route('logout') }}" class="inline">
                         @csrf
                         <button type="submit" class="bg-red-500 hover:bg-red-600 text-white text-xs px-3 py-2 rounded-md font-medium transition">
                             Keluar
                         </button>
                     </form>
                 @else
-                    <a href="#" class="text-white hover:text-blue-100 font-medium text-sm px-3 py-2">Masuk</a>
-                    <a href="#" class="bg-white text-blue-600 hover:bg-blue-50 font-semibold text-sm px-4 py-2 rounded-lg shadow transition">
+                    <a href="{{ route('login') }}" class="text-white hover:text-blue-100 font-medium text-sm px-3 py-2">Masuk</a>
+                    <a href="{{ route('register') }}" class="bg-white text-blue-600 hover:bg-blue-50 font-semibold text-sm px-4 py-2 rounded-lg shadow transition">
                         Daftar
                     </a>
                 @endauth
