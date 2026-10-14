@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TicketController;
 use Illuminate\Support\Facades\Route;
@@ -25,7 +26,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/tickets/{id}', [TicketController::class, 'show'])->name('tickets.show');
     });
 
-    Route::get('/admin/dashboard', function () {
-        return "Halaman Dashboard Admin IT";
-    })->name('admin.dashboard');
+    Route::prefix('admin')->name('admin.')->middleware(\App\Http\Middleware\AdminMiddleware::class)->group(function () {
+        Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+        Route::get('/tickets/{id}', [AdminDashboardController::class, 'show'])->name('tickets.show');
+        Route::put('/tickets/{id}', [AdminDashboardController::class, 'update'])->name('tickets.update');
+    });
 });
